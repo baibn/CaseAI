@@ -3,67 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from Myapp.models import *
 from openai import OpenAI
-
 from openai import OpenAI, APIError
-
 from Myapp.AIapi import *
-
-
-# # DeepSeek API的URL和认证信息
-# DEEPSEEK_API_URL = "https://api.siliconflow.cn/v1"
-# MODEL_NAME = "deepseek-ai/DeepSeek-V2.5"
-# API_KEY = "sk-egsfijqhpggytleywmeoyeuymzcjdeweszleibtommavsaci"
-#
-# # 初始化 OpenAI 客户端
-# client = OpenAI(api_key=API_KEY, base_url=DEEPSEEK_API_URL)
-
-
-# def generate_test_features(description):
-#     """
-#     根据需求描述生成测试功能点。
-#
-#     :param description: 需求描述字符串
-#     :return: 测试功能点列表，如果发生错误则返回空列表
-#     """
-#     # 参数校验
-#     if not description or not isinstance(description, str):
-#         return []
-#
-#     try:
-#         # 构造提示词
-#         prompt = f'你是一位资深的高级测试工程师，请根据以下需求描述生成测试功能点：{description}，你返回的是一个文本，每个功能点用换行符分隔'
-#
-#         # 调用 OpenAI API
-#         response = client.chat.completions.create(
-#             model=MODEL_NAME,
-#             messages=[{
-#                 "role": "user",
-#                 "content": prompt
-#             }],
-#             temperature=0.7,
-#             max_tokens=4096
-#         )
-#
-#         # 提取 content 字段
-#         content = response.choices[0].message.content
-#
-#         # 将 content 按换行符分割成数组
-#         test_features = content.strip().split("\n")
-#
-#         # 返回测试功能点
-#         return test_features
-#
-#     except APIError as e:
-#         # 捕获 OpenAI API 错误
-#         return []
-#     except KeyError as e:
-#         # 捕获数据解析错误（例如 response 结构不符合预期）
-#         return []
-#     except Exception as e:
-#         # 捕获其他未知异常
-#         return []
-
-
 # Create your views here.
 def get_news(request):
     new_content = DB_News.objects.last()
@@ -136,14 +77,15 @@ def srs_fj(request):
     # 重试次数
     while i < 3:
         res = AIsend(content, session_id)
-        if isinstance(eval(res), list):
+        # if isinstance(eval(res), list):
+        if isinstance(res, list):
             break
         else:
             i += 1
             print("请求失败，正在重试...|重试次数：" + str(i))
     else:
         return HttpResponse(json.dumps(["请求失败，重试次数已达上限。"]), content_type="application/json")
-    return HttpResponse(json.dumps(eval(res)), content_type="application/json")
+    return HttpResponse(json.dumps(res), content_type="application/json")
 
 
 def optimize_new_srs(request):
