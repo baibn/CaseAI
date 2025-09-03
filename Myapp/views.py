@@ -107,13 +107,16 @@ def get_new_srs(request):
     new_srs = [i['content'] for i in list(DB_new_srs.objects.filter(project_id=project_id).values('content'))]
     return HttpResponse(json.dumps(new_srs), content_type="application/json")
 
+def get_old_srs(request):
+    project_id = int(request.GET['project_id'])
+    old_srs = DB_projects.objects.filter(id=project_id)[0].old_srs
+    return HttpResponse(json.dumps(old_srs), content_type="application/json")
 
 def save_set(request):
     project_id = int(request.GET['project_id'])
     srs_case_set = json.loads(request.body)
     DB_projects.objects.filter(id=project_id).update(src_case_set=srs_case_set)
     return HttpResponse('')
-
 
 
 def AIsend_begin_set(request):
