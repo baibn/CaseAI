@@ -37,8 +37,8 @@ class AI_client():
         headers = {'Content-Type': 'application/json'}
         response = requests.post(url, headers=headers, data=payload)
         response.encoding = 'utf-8'
-        res= json.loads(response.text.split('''event:reply    data:''')[-1])['payload']['content']
-        self.end_res.append(str({'Name':Name,'res':res}))
+        res = extract_reply_content(response.text)
+        self.end_res.append(str({'Name': Name, 'res': res}))
     def AIsend_begin_set(self,old_srs,new_all_content):
         ts = []
         for i in range(len(new_all_content)):
