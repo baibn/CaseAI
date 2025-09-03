@@ -5,7 +5,7 @@ export default {
   name: "SrsSet",
   data() {
     return {
-      ole_srs: '',
+      old_srs: '',
       new_srs: [],
       showDialog: false,
       srs_case_set: [],
@@ -24,7 +24,7 @@ export default {
         background: 'rgba(0, 0, 0, 0.5)'
       });
       axios.post('http://localhost:8989/begin_set/?project_id=' + this.project.id, {
-        old_srs: this.ole_srs,
+        old_srs: this.old_srs,
         new_srs: this.new_srs
       }).then(res => {
         this.new_srs = res.data
@@ -40,7 +40,7 @@ export default {
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.5)'
       });
-      axios.post("http://localhost:8989/srs_fj/?project_id=" + this.project.id, JSON.stringify(this.ole_srs)).then(res => {
+      axios.post("http://localhost:8989/srs_fj/?project_id=" + this.project.id, JSON.stringify(this.old_srs)).then(res => {
         this.new_srs = res.data
         console.log(this.new_srs)
         loadingInstance.close()
@@ -58,6 +58,11 @@ export default {
           this.$message.success("保存成功")
       )
     },
+    save_old_srs() {
+      axios.post("http://localhost:8989/save_old_srs/?project_id=" + this.project.id, {"old_srs": this.old_srs}).then(
+          this.$message.success("保存成功")
+      )
+    },
     deleteItem(index) {
       this.new_srs.splice(index, 1)
     },
@@ -70,6 +75,9 @@ export default {
       immediate: true,
       handler(newId) {
         if (newId) {
+          axios.post("http://localhost:8989/get_old_srs/?project_id=" + this.project.id,).then(res => {
+            this.old_srs = res.data
+          })
           axios.get("http://localhost:8989/get_new_srs/?project_id=" + this.project.id).then(res => {
             this.new_srs = res.data
           })
@@ -93,9 +101,13 @@ export default {
             <span>请粘贴原始需求</span>
           </div>
         </template>
-        <div>
-          <el-input v-model="ole_srs" type="textarea" :rows="3"
-                    placeholder="请输入原始需求后点击右侧开始分解按钮"></el-input>
+        <div class="card-content">
+          <el-input v-model="old_srs"
+                    type="textarea"
+                    :rows="3"
+                    placeholder="请输入原始需求后点击右侧开始分解按钮"
+                    @blur="save_old_srs"
+          />
         </div>
       </el-card>
     </div>

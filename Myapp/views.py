@@ -101,7 +101,6 @@ def save_new_srs(request):
         DB_new_srs.objects.create(content=i, project_id=project_id)
     return HttpResponse('')
 
-
 def get_new_srs(request):
     project_id = int(request.GET['project_id'])
     new_srs = [i['content'] for i in list(DB_new_srs.objects.filter(project_id=project_id).values('content'))]
@@ -111,6 +110,13 @@ def get_old_srs(request):
     project_id = int(request.GET['project_id'])
     old_srs = DB_projects.objects.filter(id=project_id)[0].old_srs
     return HttpResponse(json.dumps(old_srs), content_type="application/json")
+
+def save_old_srs(request):
+    project_id = int(request.GET['project_id'])
+    body = json.loads(request.body)
+    print(body)
+    DB_projects.objects.filter(id=project_id).update(old_srs=body['old_srs'])
+    return HttpResponse('')
 
 def save_set(request):
     project_id = int(request.GET['project_id'])

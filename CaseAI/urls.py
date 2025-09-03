@@ -29,6 +29,7 @@ urlpatterns = [
     path('srs_fj/', srs_fj),
     path('save_new_srs/', save_new_srs),
     path('get_old_srs/', get_old_srs),
+    path('save_old_srs/', save_old_srs),
     path('get_new_srs/', get_new_srs),
     path('optimize_new_srs/', optimize_new_srs),
     path('get_srs_case_set/', get_srs_case_set),
