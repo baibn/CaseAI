@@ -13,6 +13,7 @@ class DB_News(models.Model):
 class DB_projects(models.Model):
     name = models.CharField(max_length=30,default='')
     src_case_set= models.TextField(default=[])
+    old_srs = models.TextField(default='')
     def __str__(self):
         return self.name
 
