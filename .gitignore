@@ -155,7 +155,7 @@ dmypy.json
 .pyre/
 
 # Node.js dependencies
-node_modules/
+./client/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -225,11 +225,11 @@ typings/
 .parcel-cache
 
 # Next.js build output
-.next
+./client/next
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+./client/dist
 
 # Gatsby files
 .cache/
@@ -242,7 +242,7 @@ dist
 .storybook-out
 
 # Rollup.js default build output
-dist/
+.client/dist/
 
 # Uncomment this line if you wish to ignore the project description file
 # .project
@@ -322,10 +322,10 @@ $RECYCLE.BIN/
 *~
 
 # Project specific
-media/
-staticfiles/
-static/
-client/dist/
+./client/media/
+./client/staticfiles/
+./client/static/
+./client/dist/
 
 # Logs
 logs
