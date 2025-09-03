@@ -38,7 +38,7 @@ def add_project(request):
                     {"Name": "分类树方法",
                      "AIContent": "这是一段原始需求和要测试的功能点，请结合原始需求和功能点，系统输入域拆成若干独立“分类”再组合，统计出有哪些功能点需要做决策表法用例设计。"},
                     {"Name": "错误猜测法",
-                     "AIContent": "这是一段原始需求和要测试的功能点，请结合原始需求和功能点，统计出有哪些功能点需要做错误猜测法用例设计。"},
+                     "AIContent": "这是一段原始需求和要测试的功能点，请结合原始需求和功能点，统计出有哪些功能点需要做错误猜测法用例设计。"}
                     ]
     DB_projects.objects.create(name=name, src_case_set=src_case_set)
     return get_projects(request)

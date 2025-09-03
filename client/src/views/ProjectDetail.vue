@@ -4,6 +4,7 @@ import LeftMenu from "../components/LeftMenu.vue";
 import ProjectSet from "../components/ProjectSet.vue";
 import SrsSet from "../components/SrsSet.vue";
 import axios from "axios";
+import CaseMake from "@/components/CaseMake.vue";
 
 
 export default {
@@ -37,6 +38,7 @@ export default {
     }
   },
   components: {
+    CaseMake,
     SrsSet,
     LeftMenu,
     ProjectSet
@@ -62,7 +64,9 @@ export default {
             <el-tab-pane label="需求配置">
               <SrsSet :project="project"></SrsSet>
             </el-tab-pane>
-            <el-tab-pane label="用例生成"></el-tab-pane>
+            <el-tab-pane label="用例生成">
+              <CaseMake :project="project"></CaseMake>
+            </el-tab-pane>
             <el-tab-pane label="其他"></el-tab-pane>
           </el-tabs>
         </div>
