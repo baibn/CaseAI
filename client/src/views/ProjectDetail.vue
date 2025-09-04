@@ -47,8 +47,8 @@ export default {
 </script>
 
 <template>
-  <el-container>
-    <el-aside>
+  <el-container style="height: 100vh">
+    <el-aside class="sider">
       <LeftMenu></LeftMenu>
     </el-aside>
     <el-container style="padding-left: 10px">
@@ -76,5 +76,8 @@ export default {
 </template>
 
 <style scoped>
-
+.sider {
+  height: 100%;
+  overflow: hidden;           /* 防止 el-aside 自己出现滚动条 */
+}
 </style>

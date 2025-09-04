@@ -41,8 +41,15 @@ export default {
 </script>
 
 <template>
+  <div class="layout">
   <el-menu
-      style="height: 750px"
+      :default-active="$route.path"
+      class="cool-menu"
+      background-color="#1e1e2e"
+      text-color="#bfcbd9"
+      active-text-color="#fff"
+      :collapse="isCollapse"
+      :collapse-transition="false"
       router
   >
     <el-menu-item index="/homenew">【回到首页】</el-menu-item>
@@ -64,7 +71,7 @@ export default {
     <el-menu-item index="/">获取帮助</el-menu-item>
     <el-menu-item index="/">反馈建议</el-menu-item>
   </el-menu>
-
+</div>
   <el-dialog v-model="dialogVisible" title="增加项目" style="width: 40%">
     <el-form v-model = "new_project">
       <el-form-item label="项目名称">
@@ -80,76 +87,54 @@ export default {
 </template>
 
 <style scoped>
-/* 外层容器样式 */
-.menu-container {
-  height: 100vh; /* 容器高度占满整个视口 */
-  display: flex; /* 启用 flex 布局 */
+
+/* 2. 布局容器 */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-/* 菜单样式 */
-.full-height-menu {
-  flex: 1; /* 宽度自适应，占满父容器 */
-  min-width: 200px; /* 最小宽度防止内容挤压 */
-  max-width: 300px; /* 最大宽度限制（可选） */
-  height: 100%; /* 高度继承父容器 */
-  background-color: #f5f7fa; /* 浅灰色背景 */
-  border-right: none; /* 去掉右侧边框 */
-  padding-top: 20px; /* 顶部内边距 */
+/* 让 el-menu 自动撑满剩余高度 */
+.cool-menu {
+  flex: 1;
+  overflow-y: auto;
+  border: none;
+  padding: 0 8px;
 }
 
-/* 菜单项样式 */
-.el-menu-item {
-  font-size: 14px; /* 字体大小 */
-  color: #333; /* 文字颜色 */
-  margin: 8px 0; /* 上下外边距 */
-  border-radius: 4px; /* 圆角 */
-  transition: background-color 0.3s ease, color 0.3s ease; /* 过渡效果 */
+/* 顶部 logo 块 */
+.cool-menu logo {
+  height: 60px;
+  line-height: 60px;
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  background: rgba(0,0,0,.25);
+  backdrop-filter: blur(10px);
+  margin-bottom: 10px;
+  border-radius: 6px;
 }
 
-/* 菜单项悬停效果 */
-.el-menu-item:hover {
-  background-color: #409eff; /* 悬停背景色 */
-  color: #fff; /* 悬停文字颜色 */
+/* 菜单项圆角 + 悬停动效 */
+.cool-menu el-menu-item,
+.cool-menu el-submenu__title {
+  border-radius: 6px;
+  margin: 4px 0;
+  height: 46px;
+  line-height: 46px;
+  transition: all .3s;
+}
+.cool-menu el-menu-item:hover,
+.cool-menu el-submenu__title:hover {
+  background: rgba(255,255,255,.1) !important;
+  transform: translateX(4px);
 }
 
-/* 激活菜单项样式 */
-.el-menu-item.is-active {
-  background-color: #409eff; /* 激活背景色 */
-  color: #fff; /* 激活文字颜色 */
-  font-weight: bold; /* 加粗 */
-}
-
-/* 子菜单标题样式 */
-.el-sub-menu__title {
-  font-size: 14px; /* 字体大小 */
-  color: #333; /* 文字颜色 */
-  margin: 8px 0; /* 上下外边距 */
-  border-radius: 4px; /* 圆角 */
-  transition: background-color 0.3s ease, color 0.3s ease; /* 过渡效果 */
-}
-
-/* 子菜单标题悬停效果 */
-.el-sub-menu__title:hover {
-  background-color: #409eff; /* 悬停背景色 */
-  color: #fff; /* 悬停文字颜色 */
-}
-
-/* 子菜单项样式 */
-.el-sub-menu .el-menu-item {
-  padding-left: 50px !important; /* 子菜单项缩进 */
-  font-size: 13px; /* 字体大小 */
-  color: #666; /* 文字颜色 */
-}
-
-/* 子菜单项悬停效果 */
-.el-sub-menu .el-menu-item:hover {
-  background-color: #e6f7ff; /* 悬停背景色 */
-  color: #409eff; /* 悬停文字颜色 */
-}
-
-/* 链接样式 */
-a {
-  text-decoration: none; /* 去掉下划线 */
-  color: inherit; /* 继承父元素颜色 */
+/* 激活项 */
+.cool-menu el-menu-item is-active {
+  background: linear-gradient(90deg, #6a5af9, #d66efd) !important;
+  box-shadow: 0 2px 8px rgba(102,95,249,.6);
+  color: #fff !important;
 }
 </style>
