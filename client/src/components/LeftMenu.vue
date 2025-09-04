@@ -24,7 +24,10 @@ export default {
           name: this.new_project.name
         }
       }).then(response => {
-        this.getProjects = response.data
+        // 实时更新子菜单（project是数组）
+        if (response.data){
+          this.projects.push(response.data)
+        }
         this.new_project = {name: ''}
         this.dialogVisible = false
       })
