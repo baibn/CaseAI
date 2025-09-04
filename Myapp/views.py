@@ -1,9 +1,6 @@
 import json
 from django.http import HttpResponse
-from django.shortcuts import render
 from Myapp.models import *
-from openai import OpenAI
-from openai import OpenAI, APIError
 from Myapp.AIapi import *
 # Create your views here.
 def get_news(request):
@@ -84,10 +81,6 @@ def srs_fj(request):
     return HttpResponse(json.dumps(res), content_type="application/json")
 
 
-def optimize_new_srs(request):
-    """优化需求"""
-    project_id = int(request.GET['project_id'])
-
 
 def save_new_srs(request):
     project_id = int(request.GET['project_id'])
@@ -110,7 +103,6 @@ def get_old_srs(request):
 def save_old_srs(request):
     project_id = int(request.GET['project_id'])
     body = json.loads(request.body)
-    print(body)
     DB_projects.objects.filter(id=project_id).update(old_srs=body['old_srs'])
     return HttpResponse('')
 

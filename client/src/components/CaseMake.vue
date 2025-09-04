@@ -10,7 +10,7 @@
           <div class="card-header">
             <el-button
               type="success"
-              @click="srs_fj"
+              @click="case_begin"
               style="position: absolute; right: 10px"
               >开始生成</el-button
             >
@@ -46,7 +46,13 @@ export default {
       new_srs: '',
     }
   },
-  methods: {},
+  methods: {
+    case_begin() {
+      axios.get('http://localhost:8989/get_new_srs/?project_id=' + this.project.id).then(
+          this.$message.success("开始生成用例，耐心等待")
+      )
+    },
+  },
   watch: {
     'project.id': {
       immediate: true, // 立即执行一次

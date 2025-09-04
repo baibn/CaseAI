@@ -1,10 +1,21 @@
 import json
 import threading
 from random import randint
+from django.http import HttpResponse
+from Myapp.models import *
 
 import requests
 
 url = "https://wss.lke.cloud.tencent.com/v1/qbot/chat/sse"
+
+
+
+def case_begin(request):
+    project_id = int(request.GET['project_id'])
+    project = list(DB_projects.objects.filter(id=project_id).values('old_srs'))[0]
+    old_srs = project['old_srs']
+    all_content = list(DB_new_srs.objects.filter(project_id=project_id).values('content'))[0]
+    return  HttpResponse()
 
 def extract_reply_content(sse_text):
     lines = sse_text.strip().splitlines()
@@ -28,7 +39,7 @@ class AI_client():
     def AIsend_begin_set_play(self,Name,content):
         payload = json.dumps({
         "content": content,
-        "bot_app_key": "TjcmCrhn", # 已欠费，请粉丝自行注册配置AI模型。或咨询粉丝群群主教程。
+        "bot_app_key": "TjcmCrhn",
         "visitor_biz_id": "001",
         "session_id": 'session_%d'%randint(100000,999999),
         "visitor_labels": [],

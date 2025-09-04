@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 from Myapp.views import *
+from Myapp.case_gen_views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,9 +32,9 @@ urlpatterns = [
     path('get_old_srs/', get_old_srs),
     path('save_old_srs/', save_old_srs),
     path('get_new_srs/', get_new_srs),
-    path('optimize_new_srs/', optimize_new_srs),
     path('get_srs_case_set/', get_srs_case_set),
     path('save_set/', save_set),
     path('begin_set/', AIsend_begin_set),
+    path('case_begin',case_begin)
 
 ]
